@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -8,15 +8,28 @@ import Error from "./components/Error";
 import Contact from "./components/Contact";
 import ResturantMenu from "./components/ResturantMenu";
 import Profile from "./components/Profile";
+import UserContext from "./Context/UserContext";
 
 const About = lazy(() => import("./components/About"));
 
 const AppLayout = () => {
+  const [user, setUser] = useState({
+    name: "Salman",
+    email: "Address@email.com",
+  });
+
   return (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      <UserContext.Provider
+        value={{
+          user: user,
+          setUser: setUser,
+        }}
+      >
+        <Header />
+        <Outlet />
+        <Footer />
+      </UserContext.Provider>
     </>
   );
 };

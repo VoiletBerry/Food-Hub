@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom/client";
+import UserContext from "../Context/UserContext";
 import { IMG_CDN_URL } from "../Utils/Constants";
 
 const ResturantCard = ({
@@ -13,7 +14,7 @@ const ResturantCard = ({
       <img src={IMG_CDN_URL + cloudinaryImageId}></img>
       <h2 className="font-bold text-xl">{name}</h2>
       <h5>{cuisines?.join(", ")}</h5>
-      <h4> {lastMileTravelString} minutes</h4>
+      <h4> {lastMileTravelString}</h4>
     </div>
   );
 };
