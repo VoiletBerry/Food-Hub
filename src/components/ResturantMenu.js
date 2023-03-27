@@ -1,39 +1,28 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import useResturant from "../Hooks/useResturant";
+import { useDispatch } from "react-redux";
+import { additem } from "../ReduxStore/cartSlice";
 import { IMG_CDN_URL } from "../Utils/Constants";
 import Shimmer from "./Shimmer";
 
-const ResturantMenu = () => {
-  const { id } = useParams();
+const ResturantMenu = ({ resturantInfo }) => {
+  const dispatch = useDispatch();
 
-  const resturant = useResturant(id);
-  console.log(resturant);
+  const handleOnClick = () => {
+    dispatch(additem("honda"));
+  };
 
-  return !resturant ? (
+  return !resturantInfo ? (
     <Shimmer />
   ) : (
     <div>
-      <h1> Resturant id : {id}</h1>
-      <h2> Area : {resturant.cards[0]?.card?.card?.info?.city}</h2>
-      <h2> Name : {resturant?.cards[0]?.card?.card?.info?.name}</h2>
-      <h2>
-        {" "}
-        Rating : {resturant?.cards[0]?.card?.card?.info?.avgRating} stars
-      </h2>
-      <img
-        src={
-          IMG_CDN_URL + resturant?.cards[0]?.card?.card?.info?.cloudinaryImageId
-        }
-      />
-
-
+      <h2> Area : {resturantInfo?.areaName}</h2>
+      <h2> Name : {resturantInfo?.name}</h2>
+      <h2> Rating : {resturantInfo?.avgRatingString} stars</h2>
+      <img src={IMG_CDN_URL + resturantInfo?.cloudinaryImageId} />
+      {/*
       <h1>Menu</h1>
-      {/* <ul>
-        {Object.values(resturant?.menu?.items).map((item) => {
-          return <li key={item.id}> {item.name} </li>;
-        })}
-      </ul> */}
+      <button className="p-2 m-5 bg-green-100" onClick={() => handleOnClick()}>
+        Add Item
+      </button> */}
     </div>
   );
 };
