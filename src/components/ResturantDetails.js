@@ -12,7 +12,7 @@ const ResturantDetails = () => {
   return !resturant ? (
     <Shimmer />
   ) : (
-    <div>
+    <div data-testid="res_menu_page">
       <ResturantMenu resturantInfo={resturant.info} />
       <ResturantMenuList menu={resturant.menu} />
     </div>

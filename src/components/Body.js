@@ -1,34 +1,22 @@
-import ReactDOM from "react-dom/client";
 import ResturantCard from "./ResturantCard";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { filterData } from "../Utils/Helper";
 import useOffline from "../Hooks/useOffine";
 import UserContext from "../Context/UserContext";
+import useGetAllResturant from "../Hooks/useGetAllResturant";
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
-  const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-
-  useEffect(() => {
-    getRestaurants();
-  }, []);
 
   const isOffline = useOffline();
 
+  const allRestaurants = useGetAllResturant(setFilteredRestaurant);
+
   if (!isOffline) {
     return <h1> You are Offline</h1>;
-  }
-
-  async function getRestaurants() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
-    setAllRestaurants(json.data?.cards[2]?.data?.data?.cards);
-    setFilteredRestaurant(json.data?.cards[2]?.data?.data?.cards);
   }
 
   if (!allRestaurants) {
@@ -45,26 +33,29 @@ const Body = () => {
     <Shimmer />
   ) : (
     <>
-      <div className=" p-5 bg-pink-50 m-5">
+      <div className=" bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900 ">
         <input
           type="text"
-          className="h-9 text-transparent text-center text-black"
+          data-testid="serch_input"
+          class="bg-gray-50 border ml-72 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-1/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
 
         <button
-          className="mx-2 p-2 bg-green-700 text-white rounded-md hover:bg-black "
+          type="button"
+          data-testid="search_btn"
           onClick={() => {
             const data = filterData(searchText, allRestaurants);
             setFilteredRestaurant(data);
           }}
+          className="py-2.5 px-5 ml-3 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
         >
           Search
         </button>
 
-        <input
+        {/* <input
           type="text"
           className="h-9  text-center text-black"
           placeholder="Name"
@@ -88,10 +79,12 @@ const Body = () => {
               email: e.target.value,
             });
           }}
-        />
+        /> */}
       </div>
-
-      <div className="flex flex-wrap">
+      <div
+        className="flex flex-wrap gap-5 justify-center mt-5"
+        data-testid="res-list"
+      >
         {filteredRestaurant.map((restaurant) => {
           return (
             <Link

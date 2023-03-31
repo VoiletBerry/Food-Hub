@@ -6,18 +6,20 @@ const ResturantMenuList = ({ menu }) => {
 
   return (
     <>
-      <h1>MENU</h1>
-      {menu.map((item, index) => {
-        return (
-          <div key={index}>
-            {item.categories ? (
-              <NestedItemCategory nestedItemCategory={item} />
-            ) : (
-              <ItemsCategory itemCategory={item} />
-            )}
-          </div>
-        );
-      })}
+      <h1 data-testid="menu_list">MENU</h1>
+      <div>
+        {menu.map((item, index) => {
+          return (
+            <div key={index}>
+              {item.categories ? (
+                <NestedItemCategory nestedItemCategory={item} />
+              ) : (
+                <ItemsCategory itemCategory={item} />
+              )}
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };

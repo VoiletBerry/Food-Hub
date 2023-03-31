@@ -14,6 +14,7 @@ const Menu = ({ item }) => {
         <div>
           <h3>{item?.name}</h3>
           <button
+            data-testid="addItemBtn"
             className="p-2 m-2 bg-green-100"
             onClick={(item) => HandleAddItems()}
           >
