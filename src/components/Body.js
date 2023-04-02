@@ -1,10 +1,9 @@
 import ResturantCard from "./ResturantCard";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { filterData } from "../Utils/Helper";
 import useOffline from "../Hooks/useOffine";
-import UserContext from "../Context/UserContext";
 import useGetAllResturant from "../Hooks/useGetAllResturant";
 
 const Body = () => {
@@ -19,17 +18,7 @@ const Body = () => {
     return <h1> You are Offline</h1>;
   }
 
-  if (!allRestaurants) {
-    return null;
-  }
-
-  // if (filteredRestaurant.length === 0) {
-  //   return <h1> No Resturants Found</h1>;
-  // }
-
-  const { user, setUser } = useContext(UserContext);
-
-  return filteredRestaurant.length === 0 ? (
+  return allRestaurants.length === 0 && filteredRestaurant.length === 0 ? (
     <Shimmer />
   ) : (
     <>
@@ -54,47 +43,25 @@ const Body = () => {
         >
           Search
         </button>
-
-        {/* <input
-          type="text"
-          className="h-9  text-center text-black"
-          placeholder="Name"
-          value={user.name}
-          onChange={(e) => {
-            setUser({
-              ...user,
-              name: e.target.value,
-            });
-          }}
-        />
-
-        <input
-          type="text"
-          className="h-9 ml-5 text-center text-black"
-          placeholder="Email"
-          value={user.email}
-          onChange={(e) => {
-            setUser({
-              ...user,
-              email: e.target.value,
-            });
-          }}
-        /> */}
       </div>
       <div
         className="flex flex-wrap gap-5 justify-center mt-5"
         data-testid="res-list"
       >
-        {filteredRestaurant.map((restaurant) => {
-          return (
-            <Link
-              to={"/resturant/" + restaurant.data.id}
-              key={restaurant.data.id}
-            >
-              <ResturantCard {...restaurant.data} />
-            </Link>
-          );
-        })}
+        {allRestaurants && filteredRestaurant.length === 0 ? (
+          <h1> NO </h1>
+        ) : (
+          filteredRestaurant.map((restaurant) => {
+            return (
+              <Link
+                to={"/resturant/" + restaurant.data.id}
+                key={restaurant.data.id}
+              >
+                <ResturantCard {...restaurant.data} />
+              </Link>
+            );
+          })
+        )}
       </div>
     </>
   );

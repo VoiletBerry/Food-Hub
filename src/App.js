@@ -7,33 +7,25 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Error from "./components/Error";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
-import UserContext from "./Context/UserContext";
 import { Provider } from "react-redux";
 import store from "./ReduxStore/store";
 import ResturantDetails from "./components/ResturantDetails";
 import Cart from "./components/Cart";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+import { AuthContextProvider } from "./Context/AuthContext";
 
 const About = lazy(() => import("./components/About"));
 
 const AppLayout = () => {
-  const [user, setUser] = useState({
-    name: "Salman",
-    email: "Test@gmail.com",
-  });
-
   return (
     <>
       <Provider store={store}>
-        <UserContext.Provider
-          value={{
-            user: user,
-            setUser: setUser,
-          }}
-        >
+        <AuthContextProvider>
           <Header />
           <Outlet />
           <Footer />
-        </UserContext.Provider>
+        </AuthContextProvider>
       </Provider>
     </>
   );
@@ -72,6 +64,8 @@ const appRouter = createBrowserRouter([
         element: <ResturantDetails />,
       },
       { path: "/cart", element: <Cart /> },
+      { path: "/login", element: <Login /> },
+      { path: "/signup", element: <SignUp /> },
     ],
   },
 ]);

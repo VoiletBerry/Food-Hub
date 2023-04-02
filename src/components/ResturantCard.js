@@ -31,6 +31,7 @@ const ResturantCard = ({
         />
       </div>
       <div className="">
+        
         <h6 className="text-base font-bold w-full tracking-normal h-[52px]">
           {name}
         </h6>

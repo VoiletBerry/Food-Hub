@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import UserContext from "../Context/UserContext";
+import { userAuth } from "../Context/AuthContext";
 
 const Footer = () => {
-  const { user } = useContext(UserContext);
+  const { user } = userAuth();
 
   return (
     <footer className="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="sm:flex sm:items-center sm:justify-between">
           <a href="/" class="flex items-center mb-4 sm:mb-0">
             <img
-              src="https://lh5.googleusercontent.com/p/AF1QipOhHeCaQ6Xb6RVf3R_ZBTbDK4FIug_203rKsHLT"
+              src="https://pakistanatlas.com/wp-content/uploads/2020/09/Pakistani-Food_0102_103-Anday-wala-burger.png"
               className="h-8 mr-3"
               alt="Flowbite Logo"
             />
@@ -20,18 +20,11 @@ const Footer = () => {
           </a>
           <ul className="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 dark:text-gray-400">
             <li>
-              <a href="#" className="mr-4 hover:underline md:mr-6">
-                {user.name}
-              </a>
+              <a href="#" className="mr-4 hover:underline md:mr-6"></a>
             </li>
             <li>
               <a href="#" className="mr-4 hover:underline md:mr-6 ">
-                {user.email}
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Contact
+                {user && user.email}
               </a>
             </li>
           </ul>
