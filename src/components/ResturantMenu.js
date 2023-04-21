@@ -4,12 +4,6 @@ import { IMG_CDN_URL } from "../Utils/Constants";
 import Shimmer from "./Shimmer";
 
 const ResturantMenu = ({ resturantInfo }) => {
-  const dispatch = useDispatch();
-
-  const handleOnClick = () => {
-    dispatch(additem("honda"));
-  };
-
   return !resturantInfo ? (
     <Shimmer />
   ) : (

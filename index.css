@@ -6,7 +6,6 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-
   background-color: black;
   margin: auto;
   height: 100vh;
@@ -18,7 +17,6 @@
   color: white;
   font-family: "Nunito Sans", sans-serif;
   font-size: 11rem;
-
   left: 20%;
   top: 8%;
 }
@@ -43,7 +41,6 @@
   color: white;
   font-family: "Nunito Sans", sans-serif;
   font-size: 11rem;
-
   left: 68%;
   top: 8%;
 }

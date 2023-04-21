@@ -28,7 +28,7 @@ const Header = () => {
               alt="Food Villa Logo"
             />
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-              Food Villa
+              Food Hub
             </span>
           </Link>
           <button
